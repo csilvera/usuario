@@ -25,16 +25,25 @@ var app = {
     }
 };
 app.initialize();
-/*$(window).on('load', function(){
-    Inicia();
-});*/
+
 function Acceder(){
-    $('.txt').text('INICIAR SESIÓN');
-    $('#MHeader').load('header/index.html');
-	$('.contenidos').load('modulos/iniciar.html');
-    $('footer').empty();
-    $.mobile.loading("hide");
+    var x = '';
+    var seudox = localStorage.getItem('seudonimo');
+    if(seudox != x && seudox != null){
+        Inicia();
+    }
+    else{
+        $('.txt').text('INICIAR SESIÓN');
+        $('#MHeader').load('header/index.html');
+        $('.contenidos').load('modulos/iniciar.html');
+        $('footer').empty();
+        $.mobile.loading("hide");
+    }
 }
+var noti = setInterval(function(){
+    VerificarMen();
+},15000);
+
 function checkConnection() {
     var networkState = navigator.connection.type;
     var type = undefined;
@@ -3267,30 +3276,49 @@ $('footer').on('submit', '#RespuestaSend', function(e){
     }
     
 });
+
 function VerificarMen(){
-    
-    var plataforma = device.platform;
-    if(plataforma == 'android'){
 
-        if ("Notification" in window) {
-        Notification.requestPermission(function (permission) {
-                       
-            if (permission === 'granted') {
-                var notification = new Notification("Mensaje", {
-                    tag: 'Tienes mensaje sin leer', 
-                    body: 'Didigitales' 
-                }); 
-                notification.onshow  = function() { console.log('show'); };
-                notification.onclose = function() { console.log('close'); };
-                notification.onclick = function() { console.log('click'); };
-            }
-        });
-      }
+    if(navigator.onLine){
+        var name = localStorage.getItem('seudonimo');
+        if(name != ''){
+            var url = 'https://didigitales.live/NotificameU/'+name;
+            $.get(url)
+            .done(function(data){
+                if(data == 'ok'){
+                    var plataforma = device.platform;
+                    if(plataforma == 'android'){
 
-    }else{
-        console.log('notificacion no soportada');
+                    if ("Notification" in window) {
+                        Notification.requestPermission(function (permission) {
+                            if (permission === 'granted') {
+                                navigator.vibrate(3000);
+                                var notification = new Notification("Mensaje", {
+                                    tag: 'Tienes mensaje sin leer', 
+                                    body: 'Didigitales' 
+                                }); 
+                                notification.onshow  = function() { console.log('show'); };
+                                notification.onclose = function() { console.log('close'); };
+                                notification.onclick = function() { console.log('click'); };
+                            }
+                        });
+                    }
+
+                    }
+                    else{
+                        console.clear();
+                        console.log('notificacion no soportada');
+                    }
+                }
+                else{
+                    //clearInterval(noti);
+                    console.clear();
+                    console.log('notificacion no tienes mensaje pendiente. ');
+                }
+            });
+        }
     }
-} 
+}
 $('.contenidos').on('click','#SolictPaq', function(e){
     if(navigator.onLine){
     var name = localStorage.getItem('seudonimo');
