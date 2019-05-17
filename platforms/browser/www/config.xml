@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="live.didigitales" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
+    </feature>
+    <name>Didigitales</name>
+    <description>
+        Plataforma de intercambio digital
+    </description>
+    <author email="soporte@didigitales.live" href="http://didigitales.live">
+        Dsimple Team
+    </author>
+    <icon src="icon.png" />
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="BackgroundColor" value="#69B1FA" />
+    <preference name="SplashScreenBackgroundColor" value="#FCFCFC" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true" />
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="android-minSdkVersion" value="19" />
+    <preference name="orientation" value="portrait" />
+    <preference name="SplashScreenDelay" value="3000" />
+</widget>

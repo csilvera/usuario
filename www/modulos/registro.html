@@ -1,0 +1,33 @@
+<form id="Registrater" autocomplete="off" method="get">
+           <label>Seudónimo</label>
+           <div class="input-group mb-2">
+             <div class="input-group-prepend ons">
+               <div class="input-group-text">@</div>
+             </div>
+             <input type="text" class="form-control sedor" id="seudoc" placeholder="Ingrese seudónimo" onkeypress="return seudonimos(event);" onpaste="return false" maxlength="15">
+           </div>
+            <div class="Texred">Minimo 7 caracteres.</div>
+            <label>Correo</label>
+            <input type="email" class="Correoin" id="CorreosR" placeholder="Ingrese correo" onkeypress="return correoin(event);" onpaste="return false">
+            <div class="Texred">no es un formato de correo válido. solo gmail.</div>
+            <label>Telefono</label>
+            <select class="SelTelf" id="Intelf">
+                <option value="0414">0414</option>
+                <option value="0424">0424</option>
+                <option value="0212">0212</option>
+                <option value="0416">0416</option>
+                <option value="0426">0426</option>
+                <option value="0412">0412</option>
+            </select>
+            <input type="number" class="ConTelf" id="TelfR" placeholder="Ingrese telefono" onkeypress="return numeros(event);" onpaste="return false" min="7" maxlength="7">
+            <div class="Texred">no es un formato de correo válido. solo gmail.</div>
+           <label>Contraseña</label>
+            <input type="password" class="Contapass" id="Contrasena" placeholder="Ingrese contraseña" maxlength="15" onkeypress="return contrasena(event);" onpaste="return false">
+            <div id="OjoPs" class="ico-contra"></div>
+            <div class="Texred">Minimo 8 caracteres.</div>
+            <div class="Vercon">
+                <div class="progress-bar progress-bar-striped progress-bar-animated Cc bg-light"></div>
+            </div>
+            <button type="submit" id="SendBottom"><i class="ico-send"></i></button>
+</form>
+<status></status>

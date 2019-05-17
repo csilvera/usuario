@@ -1,0 +1,31 @@
+{
+    "name": "live.didigitales",
+    "displayName": "digital",
+    "version": "1.0.0",
+    "description": "Plataforma de intercambio digital.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "ecosystem:cordova"
+    ],
+    "author": "Dsimple Team",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "cordova-plugin-battery-status": "^2.0.2",
+        "cordova-plugin-device": "^2.0.2",
+        "cordova-plugin-geolocation": "^4.0.1",
+        "cordova-plugin-network-information": "^2.0.1",
+        "cordova-plugin-splashscreen": "^5.0.2",
+        "cordova-plugin-vibration": "^3.1.0",
+        "cordova-plugin-whitelist": "^1.3.3",
+        "phonegap-plugin-local-notification": "^1.0.1"
+    },
+    "cordova": {
+        "plugins": {
+            "phonegap-plugin-local-notification": {},
+            "cordova-plugin-battery-status": {}
+        }
+    }
+}

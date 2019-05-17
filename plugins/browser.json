@@ -1,0 +1,36 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "phonegap-plugin-local-notification": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-battery-status": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-splashscreen-version": {
+            "PACKAGE_NAME": "live.didigitales"
+        },
+        "cordova-plugin-vibration": {
+            "PACKAGE_NAME": "live.didigitales"
+        }
+    },
+    "dependent_plugins": {}
+}

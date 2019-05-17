@@ -1,0 +1,17 @@
+<form id="Verificar" autocomplete="off" method="get">
+    <label>Correo o Seudónimo</label>
+           <div class="input-group mb-2">
+             <div class="input-group-prepend ons">
+               <div class="input-group-text">@</div>
+             </div>
+            <input type="text" class="form-control sedor" id="Vseudo" onkeypress="return seudonimos(event);" placeholder="Ingrese correo o seudónimo" onpaste="return false">
+           </div>
+           <label>Contraseña</label>
+            <input type="password" class="Contapass" id="Contra" placeholder="Ingrese contraseña" onpaste="return false" maxlength="15">
+             <div id="OjoP" class="ico-contra"></div>
+            <div id="Restaura" class="Restura">¿Olvidaste tu contraseña. ?</div>
+            <div id="Register" class="registra-btn">Registrate aqui. </div>
+              
+    <button type="submit" id="SendBottomI"><i class="ico-send"></i></button>
+</form>
+        
