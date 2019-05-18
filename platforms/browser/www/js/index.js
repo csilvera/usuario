@@ -150,6 +150,7 @@ function Inicia(){
 }
 function welcome(){
     localStorage.setItem("Segundo", si);
+    VerificarMen();
     scrollcon();
     var seudo = localStorage.getItem('seudonimo');
 
@@ -1580,6 +1581,7 @@ $('footer').on('click','#PerfilIn', function(e){
 function perfil(){
     if(navigator.onLine){
     localStorage.setItem("Segundo", si);
+    VerificarMen();
     var name = localStorage.getItem('seudonimo');
        $.ajax({
            url:'https://didigitales.live/MiPerfil/'+name,
@@ -2431,6 +2433,7 @@ $('#MHeader').on('click', '#MailBam', function(e){
 function Bandeja(){
     if(navigator.onLine){
     localStorage.setItem("Segundo", si);
+    VerificarMen();
     $.mobile.loading("show");
     var seudo = localStorage.getItem('seudonimo');
         $.get('https://didigitales.live/bandeja?name='+seudo)
@@ -3197,6 +3200,7 @@ function conversacion(){
         else{
             notification.close();
             localStorage.setItem("Segundo", si);
+            VerificarMen();
             ca.forEach(conv =>{
              men.append(`<div class="${conv.estatus}">
                             <div class="textconv">${conv.sms} </div>
@@ -3261,7 +3265,8 @@ $('footer').on('submit', '#RespuestaSend', function(e){
             if(data == 'ok'){
                conversacion();
                 document.getElementById("RespuestaSend").reset();
-                VerificarMen();
+                 localStorage.setItem("Segundo", si);
+                 VerificarMen();
             }
             else{
                swal('Mensaje no enviado',{ icon:'warning'});
@@ -3324,6 +3329,7 @@ function VerificarMen(){
                                     tag: 'Tienes mensaje sin leer', 
                                     body: 'Didigitales' 
                                 }); 
+                                clearInterval(noti);
                                 localStorage.setItem("Segundo", no);
                                 notification.onshow  = function() { console.log('show'); };
                                 notification.onclose = function() { console.log('close'); };
@@ -3339,15 +3345,24 @@ function VerificarMen(){
                     }
                 }
                 else{
-                    //clearInterval(noti);
                     console.clear();
                     console.log('notificacion no tienes mensaje pendiente. ');
+                    inic++;
+                    if(inic == cantn){
+                        inic = 0;
+                        clearInterval(noti);     
+                    }
                 }
             });
             
         }
         else{
             console.log('estoy fuera');
+            inic++;
+            if(inic == cantn){
+                inic = 0;
+                clearInterval(noti);     
+            }
         }
     }
 }
