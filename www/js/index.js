@@ -33,6 +33,7 @@ var app = {
 app.initialize();
 
 function Acceder(){
+    
     var x = '';
     var seudox = localStorage.getItem('seudonimo');
     if(seudox != x && seudox != null){
@@ -50,7 +51,6 @@ function Acceder(){
 var noti = setInterval(function(){
     VerificarMen();
 },10000);
-
 function checkConnection() {
     var networkState = navigator.connection.type;
     var type = undefined;
@@ -1580,9 +1580,8 @@ $('footer').on('click','#PerfilIn', function(e){
 });
 function perfil(){
     if(navigator.onLine){
-    localStorage.setItem("Segundo", si);
-    VerificarMen();
-    var name = localStorage.getItem('seudonimo');
+        $('#MHeader').load('header/header-conex.html');    
+        var name = localStorage.getItem('seudonimo');
        $.ajax({
            url:'https://didigitales.live/MiPerfil/'+name,
            type:'GET'
@@ -1628,6 +1627,7 @@ function perfil(){
             pub.append(perfil)
 
            }
+           $('footer').load('pie/pie-perfil.html');
        })
        .fail(function(data){
            $.mobile.loading("hide");
@@ -1688,20 +1688,94 @@ function perfil(){
         sconex.append(`<button id="sinconex" class="ui-btn ui-icon-refresh ui-btn-icon-left ui-shadow ui-corner-all">Verificar conexión </button>`);
     }
 }
+$('footer').on('click','#EditPerf', function(e){
+    datosUser();
+});
+function datosUser(){
+    $('#MHeader').load('header/header-datos.html');
+    $('.contenidos').load('modulos/datos.html');
+    $('footer').empty();
+}
+$('#MHeader').on('click','#regresarperf', function(e){
+    perfil();
+});
+$('.contenidos').on('submit','#DatosUser', function(e){
+    e.preventDefault();
+    var name = localStorage.getItem('seudonimo');
+    var nombre = $('#nombD').val();
+    var apell = $('#ApellD').val();
+    if(navigator.onLine){
+        if(nombre.length == 0 && apell.length == 0 ){
+            swal("Complete todos los campos ", {  icon: "error", });
+        }
+        else if(nombre.length < 3 ){
+            swal("Nombre minimo 3 caracteres. ", {  icon: "error", });
+        }
+        else if(apell.length < 3 ){
+            swal("Apellido minimo 3 caracteres. ", {  icon: "error", });
+        }
+        else{
+            $('#SendBottom').attr("disabled", true); 
+            $.get('https://didigitales.live/Datosuser?name='+name+'&nombre='+nombre+'&apellido='+apell)
+            .done(function(data){
+                $('#SendBottom').attr("disabled", false); 
+                if(data == 'ok'){
+                    $('status').empty();
+                    $('status').append('<div class="inestado">Datos actualizados</div>');
+                    var t = setTimeout(function(){
+                        $('status').empty();
+                         perfil();
+                    },3000);
+                }
+                else{
+                    $('status').empty();
+                    $('status').append('<div class="inestado">ha ocurrido una falla</div>');
+                    var t = setTimeout(function(){
+                        $('status').empty();
+                    },5000);
+                }
+        });
+        }
+    }
+    else{
+        $('status').empty();
+        $('status').append('<div class="inestado">conexion inestable</div>');
+        var t = setTimeout(function(){
+            $('status').empty();
+        },10000);
+    }
+    
+});
+function nombres(e){
+       key = e.keyCode || e.which;
+       tecla = String.fromCharCode(key).toLowerCase();
+       letras = "abcdefghijkmlnopqrstuvwxyz";
+       especiales = "8-37-39-46";
+
+       tecla_especial = false
+       for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+
+        if(letras.indexOf(tecla)==-1 && !tecla_especial){
+            return false;
+        }
+}
 $('.contenidos').on('click','#Reputa', function(e){
     
     e.preventDefault();
-    $('.txt').text('Reputación');
     $('#MHeader').load('header/header-reputacion.html');
     $('footer').empty();
     var seudo = $('.SeudoPer').attr('id');
     var Rep = 'https://didigitales.live/Reputacion?name='+seudo;
-    //var recor = 'http://digital.local/Recomendacion?name='+seudo;
-    $.ajax({
-           url:Rep,
-           type:'GET'
-    })
+    var record = 'https://didigitales.live/Recomendacion?name='+seudo;
+    $.mobile.loading("show");
+    $.get(Rep)
     .done(function(data){
+        $.mobile.loading("hide");
         var datas = JSON.parse(data);
         let pub = $('.contenidos');
         var reputaci = `<div id="SeudoRepu">
@@ -1741,24 +1815,13 @@ $('.contenidos').empty();
             pub.html();
             pub.append(reputaci);
 
-    })
-    .fail(function(data){
-           $.mobile.loading("hide");
-           $('status').empty();
-           $('status').append('<div class="inestado">conexion inestable</div>');
-           var t = setTimeout(function(){
-               $('status').empty();
-           },10000);
-           
-       }); 
-    /*var time = setTimeout(function(){
-         $.ajax({
-           url:Rep,
-           type:'GET'
-    })
+    }); 
+    var time = setTimeout(function(){
+         $.mobile.loading("show");
+         $.get(record)
         .done(function(data){
-        recod = JSON.parse(data);
-        console.log(data);
+             $.mobile.loading("hide");
+        recod = data;
         let rec = $('#Recomendaciones');
         $('#Recomendaciones').empty();
         if(data == '0'){
@@ -1769,15 +1832,13 @@ $('.contenidos').empty();
             rec.html();
             recod.forEach(reco => {
             rec.append(`<div class="mensajeuser">
-            <i class="icoperepu"></i>
-            <div class="txtrep">@${reco.seudo}</div>
+            <div class="txtrep">@${reco.seudo}</div><i class="fechacoment">${reco.fecha}</i>
             <i class="txtcoment">${reco.comentario}</i>
-            <i class="fechacoment"></i>
             </div>`)
            });  
         }
     });
-    },2000);*/
+    },1000);
    
 });
 $('#MHeader').on('click','#HeadRepu', function(e){
@@ -2420,6 +2481,39 @@ $('.contenidos').on('click','#EnSolicitud', function(e){
                 $('status').empty();
             },10000);
         }
+            } 
+        });
+});
+$('#MHeader').on('click','#EnRecomendar', function(e){
+    e.preventDefault();
+    var seudo = localStorage.getItem('seudonimo');
+    var rec = $('.txt').attr('name');
+    var urls = 'https://didigitales.live/RecomiendaCon/?emite='+seudo+'&receptor='+rec;
+    swal({
+            title: "Confirmar ?",
+            text: "Desea enviar solicitud de recomendación. !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+    .then((YES) => {
+            if (YES) {
+              if(navigator.onLine){
+              $.get(urls)
+              .done(function(data){
+                  
+                  if(data == 'ok'){
+                      swal("Solicitud ha sido enviada. !", {
+                            icon: "success",
+                      });
+                  }else{
+                      swal(data, {
+                            icon: "warning",
+                      });
+                  }
+
+              });
+              }
             } 
         });
 });
@@ -3167,8 +3261,13 @@ $('.contenidos').on('click', '.opcseg', function(e){
     $('#MHeader').empty();
     let hea = $('#MHeader');
     hea.html();
-    hea.append(`<header data-position="fixed"><div class="txt" name="${n}">${n}</div> 
-        <div id="MailBam"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a></div></header>`);
+    hea.append(`<header data-position="fixed">
+                    <div class="txt" name="${n}">${n}</div> 
+                    
+                    <div id="MailBam"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a></div>
+                    <div id="EnRecomendar"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-bullets ui-btn-icon-notext ui-btn-inline"></a></div>
+
+                </header>`);
     $('.txt').html(n);
     $('.contenidos').empty();
     let cont = $('.contenidos');
@@ -3198,7 +3297,12 @@ function conversacion(){
                 
         }
         else{
-            notification.close();
+            var plataforma = device.platform;
+            if(plataforma == 'android'){
+                if ("Notification" in window) {
+                   notification.close();
+                }
+            }
             localStorage.setItem("Segundo", si);
             VerificarMen();
             ca.forEach(conv =>{
@@ -3212,7 +3316,6 @@ function conversacion(){
             $('html, body').animate({scrollTop:$(document).height()}, 'slow');
             $.get('https://didigitales.live/solverificar?emite='+seudo+'&receptor='+name)
             .done(function(data){
-                console.log(data);
                 if(data == 'yes'){
                     var nn = '@'+seudo+' ha solicitado seguirte';
                     swal({
@@ -3233,6 +3336,33 @@ function conversacion(){
                       }
                       else{
                           $.get('https://didigitales.live/RespuestaSe?emite='+seudo+'&receptor='+name+'&sms=no')
+                          .done(function(data){
+                              
+                               conversacion();
+                           });
+                      }
+                    });
+                }
+            });
+            $.get('https://didigitales.live/Reverificar?emite='+seudo+'&receptor='+name)
+            .done(function(data){
+                if(data == 'yes'){
+                    swal("Decriba su recomendación:", {
+                        content: "input",
+                        closeOnClickOutside: false,
+                    })
+                    .then((confirma) => {
+                      var cuerpo = String(value);
+                      if (confirma == true) {
+                           $.get('https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=yes&cuerpo='+cuerpo)
+                          .done(function(data){
+                               
+                               conversacion();
+                           });
+                          
+                      }
+                      else{
+                          $.get('https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=no&cuerpo='+cuerpo)
                           .done(function(data){
                               
                                conversacion();
@@ -3304,14 +3434,10 @@ function VerificarMen(){
             n = true;
         }
         var Splano = localStorage.getItem('Segundo');
-        console.clear();
-        console.log(Splano);
         if(Splano == 'true' && n == true){
-                console.log('llegue a la consulta');
                 var url = 'https://didigitales.live/NotificameU/'+name;
                 $.get(url)
                 .done(function(data){
-                console.log('mostrando resultados');
                 inic++;
                 if(inic == cantn){
                     inic = 0;
@@ -3345,8 +3471,6 @@ function VerificarMen(){
                     }
                 }
                 else{
-                    console.clear();
-                    console.log('notificacion no tienes mensaje pendiente. ');
                     inic++;
                     if(inic == cantn){
                         inic = 0;
@@ -3357,7 +3481,6 @@ function VerificarMen(){
             
         }
         else{
-            console.log('estoy fuera');
             inic++;
             if(inic == cantn){
                 inic = 0;

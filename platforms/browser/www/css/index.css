@@ -1406,10 +1406,28 @@ option{
 }
 #right-btn, #right-btnn, #loadperfil, #loadsearch, #Coraz{
     float: right;
-    margin-right: 2%;
+    margin-right: 2.5%;
     background-color: #69B1FA;
     margin-top: 12px;
     border: none;
+}
+#nombD, #ApellD {
+	margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    padding:5px;
+}
+#nombD:focus {
+	border-color: #ccc;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(105,177,250, 0.25);
+}
+#ApellD:focus {
+	border-color: #ccc;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(105,177,250, 0.25);
 }
 #Derec{
     float: right;
@@ -1433,6 +1451,20 @@ option{
     margin-right: 4%;
     background-color: #69B1FA;
     margin-top: 0px;
+    border: none;
+}
+#rights-btns {
+	float: right;
+    margin-right: 4%;
+    background-color: #69B1FA;
+    margin-top: 12px;
+    border: none;
+}
+#rights-btnj {
+	float: right;
+    margin-right: 2%;
+    background-color: #69B1FA;
+    margin-top: 12px;
     border: none;
 }
 #rights-btn{
@@ -2122,15 +2154,15 @@ option{
     font-weight: 600;
     padding-top: 15px;
 }
-.icoperepu{
-    margin-left: 5%;
+#icoperepu{
+    margin-left: 3%;
     margin-top: 2.5px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    border: 1px solid #eee;
     float: left;
-    background-color: aquamarine;
+    background-color:#69B1FA;
+    box-shadow: none;
 }
 #SeudoRepu, .rep{
     width: 100%;
@@ -2141,8 +2173,14 @@ option{
 }
 .txtrep{
     padding-top: 10px;
-    padding-left: 5%;
+    padding-left: 7%;
     float: left;
+}
+.fechacoment{
+    padding-top: 13px;
+    padding-right: 5%;
+    float: right;
+    font-size: 8px;
 }
 .icopubli, .icopublif, .icopublip, .icopublifin{
     float: right;
@@ -2170,21 +2208,32 @@ option{
 }
 .mensajeuser{
     display: inline-block;
-    background-color: #eee;
+    background-color: #FCFCFC;
     width: 100%;
     height: auto;
     padding-bottom: 10px;
     padding-top:10px;
     border-radius: 2px;
     box-shadow: 2px 2px #ccc;
+    border: 1px solid #eee;
 }
 .txtcoment{
-    margin-left: 15%;
+    margin-top: 5px;
+    margin-left:7%;
     width: 80%;
-    padding: 15px;
+    padding: 10px;
     text-align: justify;
     float: left;
     font-size: 12px;
+}
+.Verpubl{
+    margin-left:10%;
+    width: 80%;
+    padding: 5px;
+    text-align: center;
+    float: left;
+    font-size: 12px;
+    font-weight: 600;
 }
 .medpag{
     display: inline-block;
