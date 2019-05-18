@@ -105,7 +105,7 @@ footer{
     color: #FFF;
     margin-top: 18px;
     margin-left: 5%;
-    width: 60%;
+    width: 55%;
     height: 25px;
     white-space: nowrap;
     overflow: hidden;
@@ -1406,7 +1406,7 @@ option{
 }
 #right-btn, #right-btnn, #loadingIni, #loadingIniP, #loadingIniPs, #loadperfil, #loadsearch, #Coraz{
     float: right;
-    margin-right: 4%;
+    margin-right: 2%;
     background-color: #69B1FA;
     margin-top: 12px;
     border: none;
