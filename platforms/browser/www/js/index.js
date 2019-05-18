@@ -8,6 +8,9 @@ var tm = 10000;
 var ts = 5000;
 var cop = 0;
 var ojo = 0;
+var cantn = 3;
+var inic = 0;
+var n = false;
 var si = true;
 var no = false;
 var Splano = localStorage.setItem("Segundo", no);
@@ -46,7 +49,7 @@ function Acceder(){
 
 var noti = setInterval(function(){
     VerificarMen();
-},15000);
+},10000);
 
 function checkConnection() {
     var networkState = navigator.connection.type;
@@ -146,7 +149,7 @@ function Inicia(){
     }
 }
 function welcome(){
-    
+    localStorage.setItem("Segundo", si);
     scrollcon();
     var seudo = localStorage.getItem('seudonimo');
 
@@ -1576,6 +1579,7 @@ $('footer').on('click','#PerfilIn', function(e){
 });
 function perfil(){
     if(navigator.onLine){
+    localStorage.setItem("Segundo", si);
     var name = localStorage.getItem('seudonimo');
        $.ajax({
            url:'https://didigitales.live/MiPerfil/'+name,
@@ -2426,6 +2430,7 @@ $('#MHeader').on('click', '#MailBam', function(e){
 });
 function Bandeja(){
     if(navigator.onLine){
+    localStorage.setItem("Segundo", si);
     $.mobile.loading("show");
     var seudo = localStorage.getItem('seudonimo');
         $.get('https://didigitales.live/bandeja?name='+seudo)
@@ -3288,12 +3293,25 @@ $('footer').on('submit', '#RespuestaSend', function(e){
 function VerificarMen(){
 
     if(navigator.onLine){
-        if(Splano == true){
-            var name = localStorage.getItem('seudonimo');
-            if(name != ''){
-            var url = 'https://didigitales.live/NotificameU/'+name;
-            $.get(url)
-            .done(function(data){
+        
+        var name = localStorage.getItem('seudonimo');
+        if(name != ''){
+            n = true;
+        }
+        var Splano = localStorage.getItem('Segundo');
+        console.clear();
+        console.log(Splano);
+        if(Splano == 'true' && n == true){
+                console.log('llegue a la consulta');
+                var url = 'https://didigitales.live/NotificameU/'+name;
+                $.get(url)
+                .done(function(data){
+                console.log('mostrando resultados');
+                inic++;
+                if(inic == cantn){
+                    inic = 0;
+                    localStorage.setItem("Segundo", no);
+                }
                 if(data == 'ok'){
                     var plataforma = device.platform;
                     if(plataforma == 'android'){
@@ -3326,7 +3344,10 @@ function VerificarMen(){
                     console.log('notificacion no tienes mensaje pendiente. ');
                 }
             });
+            
         }
+        else{
+            console.log('estoy fuera');
         }
     }
 }

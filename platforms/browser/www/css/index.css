@@ -1404,9 +1404,23 @@ option{
     margin-left: 4%;
     border: none;
 }
-#right-btn, #right-btnn, #loadingIni, #loadingIniP, #loadingIniPs, #loadperfil, #loadsearch, #Coraz{
+#right-btn, #right-btnn, #loadperfil, #loadsearch, #Coraz{
     float: right;
     margin-right: 2%;
+    background-color: #69B1FA;
+    margin-top: 12px;
+    border: none;
+}
+#Derec{
+    float: right;
+    margin-right: 5%;
+    background-color: #69B1FA;
+    margin-top: 16px;
+    border: none;
+}
+#Derecp{
+    float: right;
+    margin-right: 5%;
     background-color: #69B1FA;
     margin-top: 12px;
     border: none;
