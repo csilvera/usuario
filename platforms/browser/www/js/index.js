@@ -8,6 +8,9 @@ var tm = 10000;
 var ts = 5000;
 var cop = 0;
 var ojo = 0;
+var si = true;
+var no = false;
+var Splano = localStorage.setItem("Segundo", no);
 var seudonimo = '';
 var inicioweb = '';
 var app = {
@@ -40,6 +43,7 @@ function Acceder(){
         $.mobile.loading("hide");
     }
 }
+
 var noti = setInterval(function(){
     VerificarMen();
 },15000);
@@ -472,6 +476,7 @@ $('.contenidos').on('submit','#Verificar', function(e){
                 $.get('https://didigitales.live/Dseudo?name='+names)
                 .done(function(data){
                     localStorage.setItem("seudonimo", data);
+                    localStorage.setItem("Segundo", si);
                     Inicia();
                 });
                 
@@ -1968,6 +1973,7 @@ $('#SalirIn').on('click', function(e){{
         $('#SalirConfir').hide('blind');
         localStorage.setItem("seudonimo", '');
         localStorage.setItem("inicioweb", '');
+        localStorage.setItem("Segundo", no);
         Inicia();
     });
     }
@@ -3173,6 +3179,7 @@ function conversacion(){
     $.get(url)
     .done(function(data){
         $.mobile.loading("hide");
+        localStorage.setItem("Segundo", si);
         ca = data;
         num = ca.length;
         $('#MensajeConver').empty();
@@ -3280,8 +3287,9 @@ $('footer').on('submit', '#RespuestaSend', function(e){
 function VerificarMen(){
 
     if(navigator.onLine){
-        var name = localStorage.getItem('seudonimo');
-        if(name != ''){
+        if(Splano == true){
+            var name = localStorage.getItem('seudonimo');
+            if(name != ''){
             var url = 'https://didigitales.live/NotificameU/'+name;
             $.get(url)
             .done(function(data){
@@ -3297,6 +3305,7 @@ function VerificarMen(){
                                     tag: 'Tienes mensaje sin leer', 
                                     body: 'Didigitales' 
                                 }); 
+                                localStorage.setItem("Segundo", no);
                                 notification.onshow  = function() { console.log('show'); };
                                 notification.onclose = function() { console.log('close'); };
                                 notification.onclick = function() { console.log('click'); };
@@ -3316,6 +3325,7 @@ function VerificarMen(){
                     console.log('notificacion no tienes mensaje pendiente. ');
                 }
             });
+        }
         }
     }
 }

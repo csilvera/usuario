@@ -9,6 +9,7 @@
     </author>
     <icon src="icon.png" />
     <content src="index.html" />
+    <preference name="KeepRunning" value="true"/>
     <preference name="BackgroundColor" value="#69B1FA"/>
     <preference name="SplashScreenBackgroundColor" value="#FCFCFC"/>
     <preference name="HideKeyboardFormAccessoryBar" value="true"/>
