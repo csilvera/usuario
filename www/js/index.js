@@ -3179,7 +3179,6 @@ function conversacion(){
     $.get(url)
     .done(function(data){
         $.mobile.loading("hide");
-        localStorage.setItem("Segundo", si);
         ca = data;
         num = ca.length;
         $('#MensajeConver').empty();
@@ -3191,7 +3190,8 @@ function conversacion(){
                 
         }
         else{
-        ca.forEach(conv =>{
+            localStorage.setItem("Segundo", si);
+            ca.forEach(conv =>{
              men.append(`<div class="${conv.estatus}">
                             <div class="textconv">${conv.sms} </div>
                             <i class="fechsms">${conv.fecha} ${conv.hora}</i>
