@@ -3190,6 +3190,7 @@ function conversacion(){
                 
         }
         else{
+            notification.close();
             localStorage.setItem("Segundo", si);
             ca.forEach(conv =>{
              men.append(`<div class="${conv.estatus}">
