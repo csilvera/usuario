@@ -2487,8 +2487,8 @@ $('.contenidos').on('click','#EnSolicitud', function(e){
 $('#MHeader').on('click','#EnRecomendar', function(e){
     e.preventDefault();
     var seudo = localStorage.getItem('seudonimo');
-    var rec = $('.txt').attr('name');
-    var urls = 'https://didigitales.live/RecomiendaCon/?emite='+seudo+'&receptor='+rec;
+    var rec = $('.txt').attr('name'); 
+    var urls = 'http://didigitales.live/recomicon?emite='+seudo+'&receptor='+rec;
     swal({
             title: "Confirmar ?",
             text: "Desea enviar solicitud de recomendación. !",
@@ -2499,6 +2499,7 @@ $('#MHeader').on('click','#EnRecomendar', function(e){
     .then((YES) => {
             if (YES) {
               if(navigator.onLine){
+              console.log(urls);
               $.get(urls)
               .done(function(data){
                   
@@ -3349,26 +3350,29 @@ function conversacion(){
                 if(data == 'yes'){
                     swal("Decriba su recomendación:", {
                         content: "input",
+                         buttons: ["rechazar", true],
                         closeOnClickOutside: false,
                     })
                     .then((confirma) => {
-                      var cuerpo = String(value);
-                      if (confirma == true) {
-                           $.get('https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=yes&cuerpo='+cuerpo)
+                        console.log(confirma);
+                     var cuerpo = String(confirma);
+                      if (confirma == null) {
+                            var url1 = 'https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=no&cuerpo=rechazado';
+                           $.get(url1)
                           .done(function(data){
-                               
                                conversacion();
                            });
                           
                       }
                       else{
-                          $.get('https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=no&cuerpo='+cuerpo)
+                          var url2 = 'https://didigitales.live/RespuestarR?emite='+seudo+'&receptor='+name+'&sms=yes&cuerpo='+cuerpo;
+                          $.get(url2)
                           .done(function(data){
-                              
                                conversacion();
                            });
                       }
                     });
+                    
                 }
             });
         },500);
