@@ -2488,7 +2488,7 @@ $('#MHeader').on('click','#EnRecomendar', function(e){
     e.preventDefault();
     var seudo = localStorage.getItem('seudonimo');
     var rec = $('.txt').attr('name'); 
-    var urls = 'http://didigitales.live/recomicon?emite='+seudo+'&receptor='+rec;
+    var urls = 'https://didigitales.live/recomicon?emite='+seudo+'&receptor='+rec;
     swal({
             title: "Confirmar ?",
             text: "Desea enviar solicitud de recomendación. !",
