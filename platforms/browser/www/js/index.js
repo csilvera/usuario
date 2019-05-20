@@ -1769,7 +1769,9 @@ $('.contenidos').on('click','#Reputa', function(e){
     e.preventDefault();
     $('#MHeader').load('header/header-reputacion.html');
     $('footer').empty();
-    var seudo = $('.SeudoPer').attr('id');
+    var seudor = $('.SeudoPer').attr('id');
+    localStorage.setItem("reputacion", seudor);
+    var seudo = localStorage.getItem('reputacion');
     var Rep = 'https://didigitales.live/Reputacion?name='+seudo;
     var record = 'https://didigitales.live/Recomendacion?name='+seudo;
     $.mobile.loading("show");
@@ -1778,7 +1780,7 @@ $('.contenidos').on('click','#Reputa', function(e){
         $.mobile.loading("hide");
         var datas = JSON.parse(data);
         let pub = $('.contenidos');
-        var reputaci = `<div id="SeudoRepu">
+        var reputaci = `<div class="SeudoRepu" id="${datas.names}">
     <div class="txtrep">@${datas.names}</div>
 </div>
 <ul>
@@ -1832,13 +1834,13 @@ $('.contenidos').empty();
             rec.html();
             recod.forEach(reco => {
             rec.append(`<div class="mensajeuser">
-            <div class="txtrep">@${reco.seudo}</div><i class="fechacoment">${reco.fecha}</i>
+            <div class="txtrep">@${reco.name}</div><i class="fechacoment">${reco.fecha}</i>
             <i class="txtcoment">${reco.comentario}</i>
             </div>`)
            });  
         }
     });
-    },1000);
+    },400);
    
 });
 $('#MHeader').on('click','#HeadRepu', function(e){
@@ -2499,7 +2501,6 @@ $('#MHeader').on('click','#EnRecomendar', function(e){
     .then((YES) => {
             if (YES) {
               if(navigator.onLine){
-              console.log(urls);
               $.get(urls)
               .done(function(data){
                   
@@ -3315,7 +3316,8 @@ function conversacion(){
         }
         var t = setTimeout(function(){
             $('html, body').animate({scrollTop:$(document).height()}, 'slow');
-            $.get('https://didigitales.live/solverificar?emite='+seudo+'&receptor='+name)
+            var urlv = 'https://didigitales.live/solverificar?emite='+seudo+'&receptor='+name;
+            $.get(urlv)
             .done(function(data){
                 if(data == 'yes'){
                     var nn = '@'+seudo+' ha solicitado seguirte';
