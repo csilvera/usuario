@@ -1411,6 +1411,18 @@ option{
     margin-top: 12px;
     border: none;
 }
+#Mem{
+    float: right;
+    margin-right: 2.5%;
+    margin-top: 16px;
+    border: none;
+    width: 24.5px;
+    height: 24.5px;
+}
+#blueM{
+    background-color: #69B1FA;
+    border: 1px solid #69B1FA;
+}
 #nombD, #ApellD {
 	margin-top: 10px;
     width: 100%;
@@ -2329,11 +2341,26 @@ option{
     display: block;
     margin-left: 3px;
     margin-top: 4px;
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     z-index: 1001;
     border-radius: 50%;
     background-color: red;
+}
+.btn-rojos{
+    position: relative;
+    display: block;
+    left: 3px;
+    top: -24px;
+    width: 14px;
+    height: 14px;
+    z-index: 1001;
+    border-radius: 50%;
+    background-color: red;
+    color: #FFF;
+    font-size: 9px;
+    text-align: center;
+    padding-top: 1px;
 }
 .sh1{
     display:block;

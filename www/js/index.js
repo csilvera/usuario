@@ -164,6 +164,7 @@ function welcome(){
             <div id="PubliCa"></div>
             <status></status>`);
     if(navigator.onLine){
+    mensa();
     $.mobile.loading("show");
     $.ajax({
         url:'https://didigitales.live/PubDigS',
@@ -828,7 +829,7 @@ $('.contenidos').on('submit','#Registrater', function(e){
     }
     else if(contrasena.length > 6 && /gmail.com/.test(correo) && seudo.length > 5){
         $.mobile.loading("show");
-        /*$.ajax({
+        $.ajax({
             url:'https://didigitales.live/RegisterIn',
             data:url,
             type:'GET',
@@ -840,45 +841,7 @@ $('.contenidos').on('submit','#Registrater', function(e){
                 if(data == 'ok'){
                    $('.Cc').removeClass('bg-success');
                    $('.Cc').addClass('bg-light');
-                   //swal('Enhorabuena','Se ha registrado correctamente. ','success');
-                   document.getElementById('Registrater').reset();
-                    
-                     swal({
-					  title: "Enhorabuena",
-					  text: "Se ha registrado correctamente. ",
-					  icon: "success",
-					  timer: 6000,
-					});
-   
-                   document.getElementById('Registrater').reset();
-				   var t = setTimeout(function(){
-						iniciar();
-						$('.txt').text('INICIAR SESIÓN');
-						$('#MHeader').load('header/index.html');
-						$('.contenidos').load('modulos/iniciar.html');
-						$('footer').empty();
-						
-						localStorage.setItem("seudose", seudo);
-						localStorage.setItem("passwor", contrasena);
-                        var namereg = localStorage.getItem('seudose');
-                        var passwo = localStorage.getItem('passwor');
-                        $('#Vseudo').val(namereg);
-                        $('#Contra').val(passwo);
-				   },7000);
-                }
-                else{
-                    swal('Verifique',data,'error');
-                }
-            },
-            
-        }); */
-        $.get('https://didigitales.live/RegisterIn?name='+seudo+'&correo='+correo+'&contra='+contrasena+'&ext='+extes+'&num='+num)
-        .done(function(data){
-            $.mobile.loading("hide");
-            if(data == 'ok'){
-                   $('.Cc').removeClass('bg-success');
-                   $('.Cc').addClass('bg-light');
-                   //swal('Enhorabuena','Se ha registrado correctamente. ','success');
+                   swal('Enhorabuena','Se ha registrado correctamente. ','success');
                    document.getElementById('Registrater').reset();
                     
                      swal({
@@ -900,10 +863,13 @@ $('.contenidos').on('submit','#Registrater', function(e){
                         cargarini();
 				   },7000);
                 }
-            else{
+                else{
                     swal('Verifique',data,'error');
                 }
-        });
+            },
+            
+        }); 
+        
     } 
     }else{
         $('#ConexInicial').empty();
@@ -2322,9 +2288,8 @@ $('.contenidos').on('submit','#GestionPub', function(e){
            },5000);
     }
     else{
-       if(valor.length >= 30){
-       
-          
+       if(valor.length >= 20){
+         
        $.ajax({
             url:'https://didigitales.live/NPub',
             data:url,
@@ -2348,7 +2313,12 @@ $('.contenidos').on('submit','#GestionPub', function(e){
              }
              else{
                  $.mobile.loading("hide");
-                 console.log(data);
+                  var dates = '<div class="inestados">'+data+'</div>';
+                   $('estado').empty();
+                   $('estado').append(dates);
+                   var t = setTimeout(function(){
+                       $('estado').empty();
+                   },5000);
              }
         })
         .fail(function(data){
@@ -2361,10 +2331,10 @@ $('.contenidos').on('submit','#GestionPub', function(e){
         });
         
     }
-    else{
+       else{
        $.mobile.loading("hide");
        $('estado').empty();
-       $('estado').append('<div class="inestado">Mínimo 30 caracteres</div>');
+       $('estado').append('<div class="inestado">Mínimo 20 caracteres</div>');
         var t = setTimeout(function(){
             $('estado').empty();
         },10000);
@@ -2486,40 +2456,7 @@ $('.contenidos').on('click','#EnSolicitud', function(e){
             } 
         });
 });
-$('#MHeader').on('click','#EnRecomendar', function(e){
-    e.preventDefault();
-    var seudo = localStorage.getItem('seudonimo');
-    var rec = $('.txt').attr('name'); 
-    var urls = 'https://didigitales.live/recomicon?emite='+seudo+'&receptor='+rec;
-    swal({
-            title: "Confirmar ?",
-            text: "Desea enviar solicitud de recomendación. !",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        })
-    .then((YES) => {
-            if (YES) {
-              if(navigator.onLine){
-              $.get(urls)
-              .done(function(data){
-                  
-                  if(data == 'ok'){
-                      swal("Solicitud ha sido enviada. !", {
-                            icon: "success",
-                      });
-                  }else{
-                      swal(data, {
-                            icon: "warning",
-                      });
-                  }
-
-              });
-              }
-            } 
-        });
-});
-$('#MHeader').on('click', '#MailBam', function(e){
+$('#MHeader').on('click', '#Mem', function(e){
     e.preventDefault();
     $('#MHeader').load('header/header-imbox.html');
     $('.contenidos').load('modulos/inbox.html');
@@ -3257,28 +3194,6 @@ function misGroup(){
 $('.contenidos').on('click', '#MisGroup', function(e){
     misGroup();
 });
-$('.contenidos').on('click', '.opcseg', function(e){
-    e.preventDefault();
-    var n = $(this).attr('id');
-    $('#MHeader').empty();
-    let hea = $('#MHeader');
-    hea.html();
-    hea.append(`<header data-position="fixed">
-                    <div class="txt" name="${n}">${n}</div> 
-                    
-                    <div id="MailBam"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a></div>
-                    <div id="EnRecomendar"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-bullets ui-btn-icon-notext ui-btn-inline"></a></div>
-
-                </header>`);
-    $('.txt').html(n);
-    $('.contenidos').empty();
-    let cont = $('.contenidos');
-    cont.html();
-    cont.append(`<div id="MensajeConver"></div>`);
-    conversacion();
-    $('footer').load('pie/footer-inbox.html');
-
-});
 function conversacion(){
     if(navigator.onLine){
     var name = localStorage.getItem('seudonimo');
@@ -3957,7 +3872,121 @@ $('#MHeader').on('click', '#NewMen', function(e){
     $('.contenidos').load('modulos/nuevo-men.html');
     $('footer').empty();
 });
+$('.contenidos').on('click', '.opcseg', function(e){
+    e.preventDefault();
+    var n = $(this).attr('id');
+    $('#MHeader').empty();
+    let hea = $('#MHeader');
+    hea.html();
+    hea.append(`<header data-position="fixed">
+                    <div class="txt" name="${n}">${n}</div> 
+                    
+                    <div id="MailBam"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-back ui-btn-icon-notext ui-btn-inline"></a></div>
+                    <div id="OpcionMne"><a id="rights-btn" class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-bullets ui-btn-icon-notext ui-btn-inline"></a></div>
 
+                </header>`);
+    $('.txt').html(n);
+    $('.contenidos').empty();
+    let cont = $('.contenidos');
+    cont.html();
+    cont.append(`<div id="MensajeConver"></div>`);
+    conversacion();
+    $('footer').load('pie/footer-inbox.html');
+
+});
+$('#MHeader').on('click','#OpcionMne', function(e){
+    $('#OpcionesMen').empty();
+    let opc = $('#OpcionesMen');
+    opc.html();
+    opc.append(`<a id="CerrarSesion" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            <div id="EnRecomendar" class="list-po">Recomendar</div>
+            <div id="Intermed"  class="list-po">Intermediario</div>`);
+    $('#OpcionesMen').show('blind');
+});
+$('#OpcionesMen').on('click','#EnRecomendar', function(e){
+    e.preventDefault();
+    var seudo = localStorage.getItem('seudonimo');
+    var rec = $('.txt').attr('name'); 
+    var urls = 'https://didigitales.live/recomicon?emite='+seudo+'&receptor='+rec;
+    swal({
+            title: "Confirmar ?",
+            text: "Desea enviar solicitud de recomendación. !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+    .then((YES) => {
+            if (YES) {
+              if(navigator.onLine){
+              $.get(urls)
+              .done(function(data){
+                  
+                  if(data == 'ok'){
+                      swal("Solicitud ha sido enviada. !", {
+                            icon: "success",
+                      });
+                  }else{
+                      swal(data, {
+                            icon: "warning",
+                      });
+                  }
+
+              });
+              }
+            } 
+        });
+});
+$('#OpcionesMen').on('click','#Intermed', function(e){
+    e.preventDefault();
+    var seudo = localStorage.getItem('seudonimo');
+    var rec = $('.txt').attr('name'); 
+    var urls = 'https://didigitales.live/intermcon?emite='+seudo+'&receptor='+rec;
+    swal({
+            title: "Confirmar ?",
+            text: "Desea enviar solicitud de intermediario. !",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+    .then((YES) => {
+            if (YES) {
+              if(navigator.onLine){
+              $.get(urls)
+              .done(function(data){
+                  
+                  if(data == 'ok'){
+                      swal("Solicitud ha sido enviada. !", {
+                            icon: "success",
+                      });
+                  }else{
+                      swal(data, {
+                            icon: "warning",
+                      });
+                  }
+
+              });
+              }
+            } 
+        });
+});
+var mensaj = 0;
+function mensa(){
+    if(navigator.onLine){
+        var t = setInterval(function(){
+            var seudo = localStorage.getItem('seudonimo');
+            $.get('https://didigitales.live/intmen?name='+seudo)
+            .done(function(data){
+                if(data == 'no'){
+                    
+                }
+                else{
+                    $('#NumR').addClass('btn-rojos');
+                    $('#NumR').text(data);
+                }
+            });
+        },6000);
+    }
+}
 function seudonimos(e){
        key = e.keyCode || e.which;
        tecla = String.fromCharCode(key).toLowerCase();
