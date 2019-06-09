@@ -14,7 +14,7 @@
     <preference name="SplashScreenBackgroundColor" value="#FCFCFC"/>
     <preference name="HideKeyboardFormAccessoryBar" value="true"/>
     <preference name="DisallowOverscroll" value="true" />
-    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-minSdkVersion" value="21" />
     <preference name="orientation" value="portrait" />
     <preference name="SplashScreenDelay" value="3000" />
     <plugin name="cordova-plugin-battery-status" spec="~2.0.2" />
