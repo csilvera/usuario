@@ -25,6 +25,8 @@
     <preference name="HideKeyboardFormAccessoryBar" value="true" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="21" />
+    <preference name="phonegap-version" value="cli-6.5.0" />
+    <preference name="android-targetSdkVersion" value="26" />
     <preference name="orientation" value="portrait" />
     <preference name="SplashScreenDelay" value="3000" />
 </widget>

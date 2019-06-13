@@ -2456,7 +2456,7 @@ $('.contenidos').on('click','#EnSolicitud', function(e){
             } 
         });
 });
-$('#MHeader').on('click', '#Mem', function(e){
+$('#MHeader').on('click', '#Mem, #MailBam', function(e){
     e.preventDefault();
     $('#MHeader').load('header/header-imbox.html');
     $('.contenidos').load('modulos/inbox.html');
@@ -3974,8 +3974,9 @@ function mensa(){
     if(navigator.onLine){
         var t = setInterval(function(){
             var seudo = localStorage.getItem('seudonimo');
-            $.get('https://didigitales.live/intmen?name='+seudo)
-            .done(function(data){
+            if(seudo != ''){
+                $.get('https://didigitales.live/intmen?name='+seudo)
+                .done(function(data){
                 if(data == 'no'){
                     
                 }
@@ -3984,6 +3985,7 @@ function mensa(){
                     $('#NumR').text(data);
                 }
             });
+            }
         },6000);
     }
 }
